@@ -1,0 +1,49 @@
+void tree_remove_element(BSTree* tree, int data){
+
+	if(tree = NULL){
+		return;
+	}
+
+	if(data < (*tree)->data){
+		tree_remove_element(&((*tree)->left), data);
+	}
+
+	else if(data > (*tree)->data){
+		tree_remove_element(&((*tree)->right), data);
+	}
+
+	else{
+
+		if(tree->left == NULL && tree->right == NULL){
+			free(tree);
+			return NULL;
+		}
+
+		else if(tree->left == NULL || tree->right == NULL){
+			if(tree->left != NULL){
+				temp = tree->left;
+				free(tree);
+				return temp;
+			}
+
+			else{
+				temp = tree->right;
+				free(tree);
+				return temp;
+			}	
+		}
+
+		else{
+			temp = tree->right;
+		
+			WHILE(tree->left != NULL){
+				temp = temp->left;
+			}
+		
+			(*tree)->data = temp->data;
+
+			tree_remove_element(&((*tree)->right), temp->data);
+		}
+	}
+
+}
